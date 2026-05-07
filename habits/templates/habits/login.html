@@ -1,0 +1,18 @@
+{% extends 'habits/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Inicia sessió</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn primary">Entrar</button>
+    </form>
+
+    <p>No tens compte?
+        <a href="{% url 'register' %}">Registra't aquí</a>
+    </p>
+</div>
+{% endblock %}

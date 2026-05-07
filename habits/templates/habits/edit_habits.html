@@ -1,0 +1,54 @@
+{% extends 'habits/base.html' %}
+{% block content %}
+
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<h3>Crea un nou hàbit</h3>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <input type="text" name="new_habit" placeholder="Nom del hàbit" required>
+    
+    <button class="btn">Afegir hàbit</button>
+</form>
+
+
+<h2>Configura els teus hàbits</h2>
+
+
+
+<form method="POST">
+    {% csrf_token %}
+
+    {% for h in habits %}
+    <div class="habit-row">
+
+        <label>
+            <input type="checkbox" name="habits" value="{{ h.id }}"
+                {% if h.id in selected %}checked{% endif %}>
+            {{ h.name }}
+        </label>
+        <input type="number"
+               name="goal_{{ h.id }}"
+               min="1" max="20"
+               placeholder="Objectiu"
+               class="goal-input"
+               value="{% for uh in user_habits %}{% if uh.habit.id == h.id %}{{ uh.goal }}{% endif %}{% endfor %}">
+    </div>
+    {% endfor %}
+
+    <button class="btn">Desar canvis</button>
+</form>
+
+
+
+<a href="{% url 'dashboard' %}" class="btn">Tornar</a>
+
+{% endblock %}

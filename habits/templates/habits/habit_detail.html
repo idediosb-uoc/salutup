@@ -1,0 +1,59 @@
+{% extends 'habits/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="habit-detail">
+
+    {% if habit_name == "Hidratació" %}
+        <img src="{% static 'habits/icons/drop.png' %}" class="habit-detail-icon">
+    {% elif habit_name == "Alimentació" %}
+        <img src="{% static 'habits/icons/cutlery.png' %}" class="habit-detail-icon">
+    {% elif habit_name == "Exercici" %}
+        <img src="{% static 'habits/icons/dumbbell.png' %}" class="habit-detail-icon">
+    {% elif habit_name == "Descans" %}
+        <img src="{% static 'habits/icons/sleep-mode.png' %}" class="habit-detail-icon">
+    {% endif %}
+
+    <h2>{{ habit_name }}</h2>
+    <p>{{ progress }} / {{ goal }} unitats</p>
+
+    {% if progress >= goal %}
+    <p class="progress-p">
+        Objectiu completat!
+    </p>
+{% endif %}
+
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ percentage }}%;"></div>
+    </div>
+
+    <h3>Historial (últims dies)</h3>
+
+<div class="history-list">
+    {% for h in history %}
+        <div class="history-item">
+            <span class="date">{{ h.date|date:"d/m/Y" }}</span>
+            <span class="progress">{{ h.progress }} / {{ h.user_habit.goal }}</span>
+        </div>
+    {% empty %}
+        <p>No hi ha dades encara</p>
+    {% endfor %}
+</div>
+
+    <div class="controls">
+        <a href="{% url 'update_habit' tracking.id 'remove' %}?from=detail" class="btn-small remove-btn">
+            <img src="{% static 'habits/icons/minus.png' %}" width="20">
+        </a>
+        <a href="{% url 'update_habit' tracking.id 'add' %}?from=detail" class="btn-small add-btn">
+
+            <img src="{% static 'habits/icons/plus.png' %}" width="20">
+        </a>
+    </div>
+
+    <a href="{% url 'dashboard' %}" class="btn back-btn">← Torna al panell</a>
+
+</div>
+{% endblock %}

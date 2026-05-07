@@ -1,0 +1,34 @@
+
+{% extends 'habits/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Millora la teva salut!</h1>
+    <p>Comença avui millorant petits hàbits saludables!</p>
+
+    <a href="{% url 'login' %}" class="btn primary">Inicia sessió</a>
+    <a href="{% url 'register' %}" class="btn">Registra't</a>
+</div>
+<section class="feature">
+    <h2>Transforma la teva vida a millor!</h2>
+        <div class="feature">
+            <img src="{% static 'habits/icons/drop.png' %}" alt="Hidratació" class="habit-icon">
+            <h3>Hidratació</h3>
+            <p>Controla la teva ingesta d’aigua de manera senzilla.</p>
+        </div>
+
+        <div class="feature">
+            <img src="{% static 'habits/icons/cutlery.png' %}" alt="Alimentació" class="habit-icon">
+            <h3>Alimentació</h3>
+            <p>Registra fàcilment els teus àpats diaris.</p>
+        </div>
+
+        <div class="feature">
+            <img src="{% static 'habits/icons/dumbbell.png' %}" alt="Exercici" class="habit-icon">
+            <h3>Exercici</h3>
+            <p>Segueix les teves activitats físiques.</p>
+        </div>
+</section>
+{% endblock %}

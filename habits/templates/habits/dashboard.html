@@ -1,0 +1,68 @@
+{% extends 'habits/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="main-content">
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+    <h1>Hola, {{ request.user.username }}!</h1>
+    <p>Aquest és el teu panell d'hàbits per avui:</p>
+
+    <p>Hàbits completats avui: {{ completed }}</p>
+    {% if habit_trackings %}
+        {% for t in habit_trackings %}
+        <div class="habit-card">
+
+            {% if t.user_habit.habit.name == "Hidratació" %}
+                <img src="{% static 'habits/icons/drop.png' %}" class="habit-icon">
+            {% elif t.user_habit.habit.name == "Alimentació" %}
+                <img src="{% static 'habits/icons/cutlery.png' %}" class="habit-icon">
+            {% elif t.user_habit.habit.name == "Exercici" %}
+                <img src="{% static 'habits/icons/dumbbell.png' %}" class="habit-icon">
+            {% elif t.user_habit.habit.name == "Descans" %}
+                <img src="{% static 'habits/icons/sleep-mode.png' %}" class="habit-icon">
+            {% endif %}
+
+            <h3>
+                <a href="{% url 'habit_detail' t.id %}">
+                    {{ t.user_habit.habit.name }}
+                </a>
+            </h3>
+
+            <p class="progress">
+                {{ t.progress }} / {{ t.user_habit.goal }}
+            </p>
+            <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ t.percentage }}%;"></div>
+        </div>
+            {% if t.progress >= t.user_habit.goal %}
+    <p class="progress-p">
+        Objectiu completat!
+    </p>
+            {% endif %}
+
+            <div class="controls">
+                <a href="{% url 'update_habit' t.id 'remove' %}" class="btn-small remove-btn">
+                    <img src="{% static 'habits/icons/minus.png' %}" width="18">
+                </a><a href="{% url 'update_habit' t.id 'add' %}" class="btn-small add-btn">
+                    <img src="{% static 'habits/icons/plus.png' %}" width="18">
+                </a>
+            </div>
+
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Encara no tens cap hàbit configurat.</p>
+        <a href="{% url 'edit_habits' %}" class="btn">Afegeix hàbits</a>
+
+    {% endif %}
+</div>
+{% endblock %}
