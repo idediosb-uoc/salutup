@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-dwk_^et!7ip$t!4#vg+m(f-*72##5nmal8i=vh1f*$!*lk!x01
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#Agreguem * per que el host de render funcioni i tingui permisos
-ALLOWED_HOSTS = ["*"]
+#Agreguem la url per que el host de render funcioni i tingui permisos
+ALLOWED_HOSTS = ["salutup.onrender.com","127.0.0.1"]
 
 
 # Application definition
