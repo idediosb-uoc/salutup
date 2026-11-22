@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,14 +21,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dwk_^et!7ip$t!4#vg+m(f-*72##5nmal8i=vh1f*$!*lk!x01'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Clau secreta de Django
+# En local utilitza aquesta clau i a Render utilitzarem una variable d'entorn
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-salutup-local-development-key"
+)
 
-#Agreguem la url per que el host de render funcioni i tingui permisos
-ALLOWED_HOSTS = ["salutup.onrender.com","127.0.0.1"]
+
+# En local serà True i a Render posarem DEBUG=False
+DEBUG = os.environ.get("DEBUG", "True") == "True"
+
+
+# Hosts permesos
+ALLOWED_HOSTS = [
+    "salutup.onrender.com",
+    "127.0.0.1",
+    "localhost",
+]
 
 
 # Application definition
@@ -41,6 +54,7 @@ INSTALLED_APPS = [
     'habits',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,7 +65,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'salutup.urls'
+
 
 TEMPLATES = [
     {
@@ -68,11 +84,13 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'salutup.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# De moment utilitzem SQLite en local.
+# Més endavant configurarem PostgreSQL per Render.
 
 DATABASES = {
     'default': {
@@ -83,7 +101,6 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -102,11 +119,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ca'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Madrid'
 
 USE_I18N = True
 
@@ -114,7 +130,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
@@ -123,7 +138,13 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Login
+
+LOGIN_URL = '/login/'

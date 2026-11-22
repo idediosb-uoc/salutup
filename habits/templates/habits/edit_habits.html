@@ -1,6 +1,7 @@
 {% extends 'habits/base.html' %}
+{% load static %}
 {% block content %}
-
+<div class="edit-habits">
 {% if messages %}
     <div class="messages">
         {% for message in messages %}
@@ -8,25 +9,89 @@
         {% endfor %}
     </div>
 {% endif %}
+<div class="afegir-habit">
+    <h3>Crea un nou hàbit</h3>
 
-<h3>Crea un nou hàbit</h3>
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text"
+               name="new_habit"
+               placeholder="Nom del hàbit"
+               required>
+
+        <h4>Escull una icona</h4>
+
+        <div class="selector-iconas">
+
+            <label>
+                <input type="radio" name="new_habit_icon" value="amor" required>
+                <img src="{% static 'habits/icons/custom/amor_negro.png' %}" alt="Amor">
+            </label>
+
+            <label>
+                <input type="radio" name="new_habit_icon" value="estrella">
+                <img src="{% static 'habits/icons/custom/estrella_negro.png' %}" alt="Estrella">
+            </label>
+
+            <label>
+                <input type="radio" name="new_habit_icon" value="libro">
+                <img src="{% static 'habits/icons/custom/libro_negro.png' %}" alt="Llibre">
+            </label>
+
+            <label>
+                <input type="radio" name="new_habit_icon" value="loto">
+                <img src="{% static 'habits/icons/custom/loto_negro.png' %}" alt="Lotus">
+            </label>
+
+            <label>
+                <input type="radio" name="new_habit_icon" value="zapato">
+                <img src="{% static 'habits/icons/custom/zapato_negro.png' %}" alt="Córrer">
+            </label>
+
+        </div>
+
+        <h4>Escull un color</h4>
+
+        <div class="selector-colores">
+
+            <label>
+                <input type="radio" name="new_habit_color" value="negro" required>
+                Negre
+            </label>
+
+            <label>
+                <input type="radio" name="new_habit_color" value="azul">
+                Blau
+            </label>
+
+            <label>
+                <input type="radio" name="new_habit_color" value="verde">
+                Verd
+            </label>
+
+            <label>
+                <input type="radio" name="new_habit_color" value="naranja">
+                Taronja
+            </label>
+
+        </div>
+
+        <button class="btn">Afegir hàbit</button>
+    </form>
+</div>
+
+<div class="form"><h2>Configura els teus hàbits</h2>
 
 <form method="POST">
     {% csrf_token %}
+
+    <div class="habit-row-header">
+        <span>Hàbit</span>
+        <span>Objectiu</span>
+        <span>Unitat</span>
+    </div>
     
-    <input type="text" name="new_habit" placeholder="Nom del hàbit" required>
-    
-    <button class="btn">Afegir hàbit</button>
-</form>
-
-
-<h2>Configura els teus hàbits</h2>
-
-
-
-<form method="POST">
-    {% csrf_token %}
-
     {% for h in habits %}
     <div class="habit-row">
 
@@ -35,20 +100,29 @@
                 {% if h.id in selected %}checked{% endif %}>
             {{ h.name }}
         </label>
+
         <input type="number"
-               name="goal_{{ h.id }}"
-               min="1" max="20"
-               placeholder="Objectiu"
-               class="goal-input"
-               value="{% for uh in user_habits %}{% if uh.habit.id == h.id %}{{ uh.goal }}{% endif %}{% endfor %}">
+            name="goal_{{ h.id }}"
+            min="1"
+            placeholder="Objectiu"
+            class="goal-input"
+            value="{% for uh in user_habits %}{% if uh.habit.id == h.id %}{{ uh.goal }}{% endif %}{% endfor %}">
+
+        <input type="text"
+            name="unit_{{ h.id }}"
+            placeholder="Unitat"
+            class="unit-input"
+            maxlength="30"
+            value="{% for uh in user_habits %}{% if uh.habit.id == h.id %}{{ uh.unit }}{% endif %}{% endfor %}">
+
     </div>
     {% endfor %}
 
     <button class="btn">Desar canvis</button>
 </form>
-
+</div>
 
 
 <a href="{% url 'dashboard' %}" class="btn">Tornar</a>
-
+</div>
 {% endblock %}

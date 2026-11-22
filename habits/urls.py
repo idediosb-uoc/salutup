@@ -2,7 +2,6 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
@@ -13,10 +12,11 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('habit/update/<int:tracking_id>/<str:action>/', views.update_habit, name='update_habit'),
     path('habit/edit/', views.edit_habits, name='edit_habits'),
-    #utilitza la id de l'usuari per generar l'habit detail
+    #utilitza la id de l'HabitTracking per generar l'habit detail
     path('habit/<int:tracking_id>/', views.habit_detail, name='habit_detail'),
     path('edit-habits/', views.edit_habits, name='edit_habits'),
-    
+    path('estadistiques/', views.estadistiques, name='estadistiques'),
+    path('contacte/', views.contacte, name='contacte'),
     
 ]
 

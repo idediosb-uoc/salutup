@@ -15,10 +15,21 @@
         <img src="{% static 'habits/icons/dumbbell.png' %}" class="habit-detail-icon">
     {% elif habit_name == "Descans" %}
         <img src="{% static 'habits/icons/sleep-mode.png' %}" class="habit-detail-icon">
+    {% else %}
+
+    {% if tracking.user_habit.habit.icon %}
+        <img src="{% static tracking.user_habit.habit.icon %}"
+             class="habit-detail-icon">
+    {% else %}
+        <div class="habit-detail-personalitzat">
+            {{ habit_name|first|upper }}
+        </div>
     {% endif %}
 
+{% endif %}
+
     <h2>{{ habit_name }}</h2>
-    <p>{{ progress }} / {{ goal }} unitats</p>
+    <p>{{ progress }} / {{ goal }} {{ tracking.user_habit.unit }}</p>
 
     {% if progress >= goal %}
     <p class="progress-p">
@@ -30,13 +41,43 @@
         <div class="progress-fill" style="width: {{ percentage }}%;"></div>
     </div>
 
+<div class="ratxes">
+
+    <div class="ratxa">
+
+        <h3>Ratxa actual</h3>
+
+        {% if streak == 1 %}
+            <p>{{ streak }} dia</p>
+        {% else %}
+            <p>{{ streak }} dies</p>
+        {% endif %}
+
+    </div>
+
+    <div class="ratxa">
+
+        <h3>Millor ratxa</h3>
+
+        {% if best_streak == 1 %}
+            <p>{{ best_streak }} dia</p>
+        {% else %}
+            <p>{{ best_streak }} dies</p>
+        {% endif %}
+
+    </div>
+
+</div>
+
     <h3>Historial (últims dies)</h3>
 
 <div class="history-list">
     {% for h in history %}
         <div class="history-item">
             <span class="date">{{ h.date|date:"d/m/Y" }}</span>
-            <span class="progress">{{ h.progress }} / {{ h.user_habit.goal }}</span>
+            <span class="progress">
+                {{ h.progress }} / {{ h.user_habit.goal }} {{ h.user_habit.unit }}
+            </span>
         </div>
     {% empty %}
         <p>No hi ha dades encara</p>
@@ -53,7 +94,17 @@
         </a>
     </div>
 
-    <a href="{% url 'dashboard' %}" class="btn back-btn">← Torna al panell</a>
+    <div class="habit-actions">
+
+    <a href="{% url 'dashboard' %}" class="btn">
+        ← Torna al panell
+    </a>
+
+    <a href="{% url 'edit_habits' %}" class="btn">
+        Edita l'hàbit
+    </a>
+
+</div>
 
 </div>
 {% endblock %}

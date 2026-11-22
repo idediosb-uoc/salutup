@@ -4,14 +4,35 @@
 {% block content %}
 <div class="form-container">
     <h2>Crea un compte nou</h2>
-    
+
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        {{ form.non_field_errors }}
+
+        <p>
+            <label for="{{ form.username.id_for_label }}">Nom d'usuari:</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </p>
+
+        <p>
+            <label for="{{ form.password1.id_for_label }}">Contrasenya:</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+        </p>
+
+        <p>
+            <label for="{{ form.password2.id_for_label }}">Confirma la contrasenya:</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+        </p>
+
         <button type="submit" class="btn primary">Registrar</button>
     </form>
 
-    <p>Ja tens compte?
+    <p>
+        Ja tens compte?
         <a href="{% url 'login' %}">Inicia sessió</a>
     </p>
 </div>

@@ -7,6 +7,14 @@ class Habit(models.Model):
     #description = models.TextField(blank=True)
     icon = models.CharField(max_length=200, blank=True)
 
+    #usuari que ha creat l'habit, si es buit es un habit general
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         return self.name
 
@@ -16,6 +24,7 @@ class UserHabit(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
     goal = models.IntegerField(default=1)
+    unit = models.CharField(max_length=30, default="unitats")
     #created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

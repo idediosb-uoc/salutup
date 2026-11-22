@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Entorno virtual
+venv/
+.venv/
+env/
+
+# Base de datos local
+db.sqlite3
+
+# Variables privadas
+.env
+
+# Django
+staticfiles/
+media/
+
+# Editor
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,162 @@
+{% extends 'habits/base.html' %}
+
+{% block content %}
+
+<div class="main-content">
+
+    <h1>Les teves estadístiques</h1>
+
+    <p>Consulta el progrés dels teus hàbits d'avui.</p>
+
+
+    <div class="estadistiques">
+
+        <div class="estadistica">
+            <h3>Hàbits completats</h3>
+            <p>{{ completed }}</p>
+        </div>
+
+        <div class="estadistica">
+            <h3>Total d'hàbits</h3>
+            <p>{{ total }}</p>
+        </div>
+
+        <div class="estadistica">
+            <h3>Percentatge</h3>
+            <p>{{ percentage }}%</p>
+        </div>
+
+    </div>
+
+
+    <div class="progres-habits">
+
+        <h2>Progrés dels hàbits</h2>
+
+        {% if habit_trackings %}
+
+            {% for t in habit_trackings %}
+
+                <div class="estadistica-habit">
+
+                    <h3>
+                        {{ t.user_habit.habit.name }}
+                    </h3>
+
+                    <p>
+                        {{ t.progress }} / {{ t.user_habit.goal }}
+                    </p>
+
+                    {% if t.user_habit.goal > 0 %}
+
+                        <div class="barra-estadistica">
+
+                            <div class="barra-estadistica-progres"
+                                 style="width: {% widthratio t.progress t.user_habit.goal 100 %}%;">
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                    {% if t.progress >= t.user_habit.goal %}
+                        <p>Objectiu completat!</p>
+                    {% else %}
+                        <p>En progrés</p>
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No tens cap hàbit configurat.</p>
+
+        {% endif %}
+
+    </div>
+
+    <div class="grafica-estadistiques">
+
+    <h2>Evolució dels últims 7 dies</h2>
+
+    <div class="grafica">
+
+        {% for day in history %}
+
+            <div class="columna-grafica">
+
+                <div class="barra-grafica {% if not day.has_data %}sense-dades{% endif %}">
+
+                    {% if day.has_data %}
+
+                        <div class="nivell-grafica {% if day.percentage == 0 %}zero{% endif %}"
+                            style="height: {{ day.percentage }}%;">
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+                <span class="percentatge-grafica">
+
+                    {% if day.has_data %}
+                        {{ day.percentage }}%
+                    {% else %}
+                        -
+                    {% endif %}
+
+                </span>
+
+                <span class="data-grafica">
+                    {{ day.date|date:"d/m" }}
+                </span>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div class="historial">
+
+    <h2>Historial dels últims 7 dies</h2>
+
+    {% for day in history %}
+
+        <div class="dia-historial">
+
+            <strong>
+                {{ day.date|date:"d/m/Y" }}
+            </strong>
+
+            {% if day.has_data %}
+
+                <span>
+                    {{ day.completed }} de {{ day.total }} hàbits
+                </span>
+
+                <span>
+                    {{ day.percentage }}%
+                </span>
+
+            {% else %}
+
+                <span>
+                    Sense registre
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

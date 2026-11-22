@@ -3,6 +3,7 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SalutUp</title>
     
 <link rel="stylesheet" href="{% static 'habits/style.css' %}">
@@ -17,11 +18,13 @@
 
     <nav>
         {% if user.is_authenticated %}
-            <a href="{% url 'edit_habits' %}">Configura hàbits</a>
+            <a href="{% url 'edit_habits' %}" class="config-habits">Configura hàbits</a>
             <a href="{% url 'logout' %}">
     <img src="{% static 'habits/icons/logout.png' %}" class="logout-icon">
 </a>
         {% else %}
+            <a href="{% url 'login' %}">Com funciona</a>
+            <a href="{% url 'login' %}">Contacte</a>
             <a href="{% url 'login' %}">Inicia sessió</a>
             <a href="{% url 'register' %}">Registra't</a>
         {% endif %}
@@ -33,5 +36,26 @@
         {% endblock %}
     </main>
 
+    <footer class="footer">
+        <div class="footer-links">
+
+            <a href="{% url 'home' %}">Inici</a>
+
+            <a href="{% url 'contacte' %}">Contacte</a>
+
+            <a href="https://github.com/idediosb-uoc" target="_blank">
+                GitHub
+            </a>
+
+        </div>
+
+        <p class="copyright">
+
+            © 2026 SalutUp · Desenvolupat per Iban de Dios Blanco
+
+        </p>
+
+    </div>
+    </footer>
 </body>
 </html>

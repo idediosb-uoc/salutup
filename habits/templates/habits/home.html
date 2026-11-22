@@ -1,34 +1,166 @@
-
 {% extends 'habits/base.html' %}
 
 {% load static %}
 
 {% block content %}
-<div class="main-content">
-    <h1>Millora la teva salut!</h1>
-    <p>Comença avui millorant petits hàbits saludables!</p>
 
-    <a href="{% url 'login' %}" class="btn primary">Inicia sessió</a>
-    <a href="{% url 'register' %}" class="btn">Registra't</a>
-</div>
-<section class="feature">
+<div class="main-content">
+
+    <section class="hero">
+        <h1>Construeix hàbits saludables i millora la teva vida una mica més cada dia</h1>
+
+        <h2 class="title2">
+            SalutUp t'ajuda a crear, seguir i mantenir els teus hàbits saludables
+            d'una manera senzilla i visual.
+        </h2>
+
+        <p>Comença avui millorant petits hàbits saludables!</p>
+
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="btn primary">Inicia sessió</a>
+            <a href="{% url 'register' %}" class="btn">Registra't</a>
+        {% endif %}
+    </section>
+
+
     <h2>Transforma la teva vida a millor!</h2>
-        <div class="feature">
-            <img src="{% static 'habits/icons/drop.png' %}" alt="Hidratació" class="habit-icon">
+
+    <section id="habit-container">
+
+        <div class="habit">
+            <img src="{% static 'habits/icons/drop.png' %}"
+                 alt="Hidratació"
+                 class="habit-icon">
+
             <h3>Hidratació</h3>
+
             <p>Controla la teva ingesta d’aigua de manera senzilla.</p>
         </div>
 
-        <div class="feature">
-            <img src="{% static 'habits/icons/cutlery.png' %}" alt="Alimentació" class="habit-icon">
+
+        <div class="habit">
+            <img src="{% static 'habits/icons/dumbbell.png' %}"
+                 alt="Exercici"
+                 class="habit-icon">
+
+            <h3>Exercici</h3>
+
+            <p>Segueix les teves activitats físiques.</p>
+        </div>
+
+
+        <div class="habit">
+            <img src="{% static 'habits/icons/cutlery.png' %}"
+                 alt="Alimentació"
+                 class="habit-icon">
+
             <h3>Alimentació</h3>
+
             <p>Registra fàcilment els teus àpats diaris.</p>
         </div>
 
-        <div class="feature">
-            <img src="{% static 'habits/icons/dumbbell.png' %}" alt="Exercici" class="habit-icon">
-            <h3>Exercici</h3>
-            <p>Segueix les teves activitats físiques.</p>
+
+        <div class="habit">
+            <img src="{% static 'habits/icons/sleep-mode.png' %}"
+                 alt="Descans"
+                 class="habit-icon">
+
+            <h3>Descans</h3>
+
+            <p>Reposa el cos les hores necessàries.</p>
         </div>
-</section>
+
+
+        <div class="habit">
+            <div class="icono-funcion">
+                <img src="{% static 'habits/icons/diagram.png' %}"
+                 alt="stats"
+                 class="habit-icon">
+            </div>
+
+            <h3>Estadístiques</h3>
+
+            <p>Consulta el teu progrés i l'evolució dels teus hàbits.</p>
+        </div>
+
+
+        <div class="habit">
+            <div class="icono-funcion">
+                <img src="{% static 'habits/icons/fire.png' %}"
+                 alt="ratxes"
+                 class="habit-icon">
+            </div>
+
+            <h3>Ratxes</h3>
+
+            <p>Mantén la constància i supera les teves millors ratxes.</p>
+        </div>
+
+    </section>
+
+
+    <section class="app-showcase">
+
+        <h2>Descobreix SalutUp</h2>
+
+        <p class="intro-text">
+            Gestiona els teus hàbits, personalitza els teus objectius
+            i consulta la teva evolució d'una manera senzilla.
+        </p>
+
+        <div class="feature-row">
+
+            <div class="screen">
+                <img src="{% static 'habits/screenshots/dashboard_recortado.png' %}"
+                    alt="Panell principal de SalutUp">
+            </div>
+
+            <div class="feature-info">
+                <h3>Segueix els teus hàbits cada dia</h3>
+                <p>
+                    Consulta els teus hàbits actius, registra el progrés diari
+                    i comprova fàcilment quins objectius has completat.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="feature-row reverse">
+
+            <div class="screen">
+                <img src="{% static 'habits/screenshots/configura_habits_recortado.png' %}"
+                    alt="Configuració dels hàbits de SalutUp">
+            </div>
+
+            <div class="feature-info">
+                <h3>Personalitza els teus objectius</h3>
+                <p>
+                    Configura els teus hàbits, defineix objectius i unitats
+                    i crea nous hàbits personalitzats amb diferents icones i colors.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="feature-row">
+
+            <div class="screen">
+                <img src="{% static 'habits/screenshots/estadistiques_recortado.png' %}"
+                    alt="Estadístiques de SalutUp">
+            </div>
+
+            <div class="feature-info">
+                <h3>Consulta la teva evolució</h3>
+                <p>
+                    Visualitza el progrés dels teus hàbits, els percentatges
+                    de compliment i l'evolució dels últims dies.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
 {% endblock %}
