@@ -131,6 +131,7 @@ main {
 nav {
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
 /*enllaç dins del nav*/
@@ -148,17 +149,16 @@ nav a:hover {
 
 .config-habits {
     padding: 9px 16px;
-    border: 2px solid #0d47ff;
     border-radius: 8px;
     color: #0d47ff;
     text-decoration: none;
     font-weight: 600;
-    background-color: white;
+    background-color: #f2f6ff;
+    transition: background-color 0.2s;
 }
 
 .config-habits:hover {
-    background-color: #0d47ff;
-    color: white;
+    background-color: #dce7ff;
 }
 
 /* icone de logout*/
