@@ -22,12 +22,11 @@
             <a href="{% url 'logout' %}">
     <img src="{% static 'habits/icons/logout.png' %}" class="logout-icon">
 </a>
-        {% else %}
-            <a href="{% url 'login' %}">Com funciona</a>
-            <a href="{% url 'login' %}">Contacte</a>
-            <a href="{% url 'login' %}">Inicia sessió</a>
-            <a href="{% url 'register' %}">Registra't</a>
-        {% endif %}
+            {% else %}
+                <a href="{% url 'contacte' %}">Contacte</a>
+                <a href="{% url 'login' %}">Inicia sessió</a>
+                <a href="{% url 'register' %}" class="register-nav">Registra't</a>
+            {% endif %}
     </nav>
 </header>
 

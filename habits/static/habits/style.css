@@ -159,6 +159,23 @@ nav a:hover {
 
 .config-habits:hover {
     background-color: #dce7ff;
+    color: #0d47ff;
+}
+
+/*register nav*/
+
+.register-nav {
+    padding: 9px 16px;
+    border-radius: 8px;
+    background-color: var(--primary);
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.register-nav:hover {
+    background-color: #003bd1;
+    color: white;
 }
 
 /* icone de logout*/
